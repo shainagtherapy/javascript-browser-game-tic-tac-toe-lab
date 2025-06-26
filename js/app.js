@@ -89,7 +89,8 @@ function updateMessage() {
         messageEls.textContent = "You've won!"
     }
 }
-
+//WILL NEED A STEP OF IF/ELSE TRUE STATEMENT TO READ:
+//IF CLICK IS "X", MESSAGE SAYS "IT'S O TURN" ETC
 
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -102,5 +103,6 @@ function handleClick(event) {
 }
 
 squareEls.addEventListener('click', handleClick {
-
+// turn X
+// updates message to "it's O turn"
 })
