@@ -26,10 +26,21 @@
 /*-------------------------------- Constants --------------------------------*/
 const squareEls = document.querySelectorAll('.sqr');
 const messageEls = document.querySelector('#message');
+const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [6, 4, 2]
+]
+
 console.log(squareEls)
 console.log(messageEls)
 /*---------------------------- Variables (state) ----------------------------*/
-let board = ['','','','','','','','','']
+let board
 let turn 
 let winner 
 let tie
@@ -39,7 +50,10 @@ let tie
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
-    board = ['','','','','','','','',''];
+    board = [
+        '','','',
+        '','','',
+        '','',''];
     turn = "X";
     winner = false;
     tie = false;
@@ -47,7 +61,8 @@ function init() {
 }
 init()
 
-// Step 3. g. Call a function named render() at the end of the init() function.
+// STUCK Step 3g. Call a function named render() at the end of the init() function.
+//Resolved at line 60
 function render() {
     updateBoard();
     updateMessage();
@@ -75,7 +90,17 @@ function updateMessage() {
     }
 }
 
+
+
 /*----------------------------- Event Listeners -----------------------------*/
 
+// function handleClick(event) {
+//     squareEls.forEach(addEventListener.'click')
+// }
+function handleClick(event) {
 
+}
 
+squareEls.addEventListener('click', handleClick {
+
+})
