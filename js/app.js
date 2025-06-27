@@ -37,13 +37,13 @@ const winningCombos = [
     [6, 4, 2]
 ]
 
-console.log(squareEls)
-console.log(messageEls)
+// console.log(squareEls)
+// console.log(messageEls)
 /*---------------------------- Variables (state) ----------------------------*/
-let board
-let turn 
-let winner 
-let tie
+let board;
+let turn;
+let winner;
+let tie;
 /*------------------------ Cached Element References ------------------------*/
 
 
@@ -51,9 +51,9 @@ let tie
 /*-------------------------------- Functions --------------------------------*/
 function init() {
     board = [
-        '','','',
-        '','','',
-        '','',''];
+        '', '', '',
+        '', '', '',
+        '', '', ''];
     turn = "X";
     winner = false;
     tie = false;
@@ -61,6 +61,11 @@ function init() {
 }
 init()
 
+function play(event) {
+    player1(event);
+    player2(event);
+    render();
+}
 // STUCK Step 3g. Call a function named render() at the end of the init() function.
 //Resolved at line 60
 function render() {
@@ -70,7 +75,7 @@ function render() {
 
 function updateBoard() {
     for (let i = 0; i < board.length; i++) {
-            squareEls[i].textContent = board[i];
+        squareEls[i].textContent = board[i];
         // if (turn === "X") {
         //     squareEls[i].textContent = board[i]
         // } else if (turn != "X") {
@@ -89,20 +94,42 @@ function updateMessage() {
         messageEls.textContent = "You've won!"
     }
 }
+render()
+
+checkForWinner.forEach((winningCombos) => {
+    
+})
 //WILL NEED A STEP OF IF/ELSE TRUE STATEMENT TO READ:
 //IF CLICK IS "X", MESSAGE SAYS "IT'S O TURN" ETC
 
 
 /*----------------------------- Event Listeners -----------------------------*/
 
+
+// Step 6 a.b.c.
+const handleClick = (event) => {
+    const squareIndex = event.target.id;
+    console.log(squareIndex)
+}
+
+squareEls.forEach((banana) => {
+    banana.addEventListener('click', (event) => {
+        handleClick(event)
+    })
+})
+console.log(handleClick)
+//document.querySelectorAll('.sqr').addEventListener('click', play)
+
+
+
+
 // function handleClick(event) {
 //     squareEls.forEach(addEventListener.'click')
 // }
-function handleClick(event) {
+// function handleClick(event) {
 
-}
+// }
 
-squareEls.addEventListener('click', handleClick {
+// squareEls.addEventListener('click', handleClick)
 // turn X
 // updates message to "it's O turn"
-})
