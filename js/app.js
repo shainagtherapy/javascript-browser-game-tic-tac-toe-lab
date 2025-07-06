@@ -48,8 +48,8 @@ const winningCombos = [
 /*------------------------ Cached Element References ------------------------*/
 
 const squareEls = document.querySelectorAll('.sqr');
-const messageEls = document.querySelector('#message');
-const restartBtn = document.querySelector('#restartBtn');
+const messageEl = document.querySelector('#message');
+const resetBtnEl = document.querySelector('#reset');
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -65,8 +65,7 @@ function init() {
     tie = false;
     render();
 }
-init()
-
+init();
 // function play(event) {
 //     player1(event);
 //     player2(event);
@@ -92,11 +91,11 @@ function updateBoard() {
 
 function updateMessage() {
     if (winner === false && tie === false) {
-        messageEls.textContent = `It's ${turn}'s turn`;
+        messageEl.textContent = `It's ${turn}'s turn`;
     } else if (winner === false && tie === true) {
-        messageEls.textContent = "It's a tie!";
+        messageEl.textContent = "It's a tie!";
     } else {
-        messageEls.textContent = `Player ${turn} won!`;
+        messageEl.textContent = `Player ${turn} won!`;
     }
 }
 
@@ -117,14 +116,14 @@ function placePiece(index) {
 // function checkForWinner () {
 //     for (let i = 0; i < winningCombos.length; i++) {
 //         const [a, b, c] = winningCombos[i];
-//     if (a !== "" && a === b && a === c) {
+//     if ([a] !== "" && [a] === [b] && [a] === [c]) {
 //         winner = true;
 //         return;
 //     }
 //     }
 // }
 
-function checkForWinner() {
+function checkForWinner() { //chat gpt suggestion, is it not the same?
   for (let i = 0; i < winningCombos.length; i++) {
     const [a, b, c] = winningCombos[i];
     if (
@@ -138,22 +137,22 @@ function checkForWinner() {
   }
 }
 
+
 // Step 6.3
-// function checkForTie () {
-//     if (checkForWinner = false) {
-//         return; // this ends the function
-//     } else if (board [""]) {
-//         return;
-//     } else
-//         tie = true;
-// }
-// rewrite:
-function checkForTie() {
-  if (winner === true) return;
-  if (!board.includes('')) { 
-    tie = true;
+function checkForTie () {
+    if (winner === false && (!board.includes(""))) {
+      tie = true;
+    }
   }
-}
+
+// rewrite call a friend: if (winner === false && (!board.includes(""))) tie = true;
+// rewrite: chatgpt suggestion
+// function checkForTie() {
+//   if (winner === true) return;
+//   if (!board.includes('')) { 
+//     tie = true;
+//   }
+// }
 
 
 // Step 6.4
@@ -168,11 +167,6 @@ function switchPlayerTurn() {
         return;
 }
 }
-console.log(turn)
-
-//WILL NEED A STEP OF IF/ELSE TRUE STATEMENT TO READ:
-//IF CLICK IS "X", MESSAGE SAYS "IT'S O TURN" ETC
-
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -194,20 +188,23 @@ console.log(turn)
 // }
 
 // ORIGINAL LOOP KEEP ME!
-// for (let i = 0; i < squareEls.length; i++) {
-//   squareEls[i].addEventListener("click", handleClick);
-// }
+for (let i = 0; i < squareEls.length; i++) {
+  squareEls[i].addEventListener("click", handleClick);
+}
+
 function handleClick(event) {
-  const clickedSquare = event.target;
+  const squareIndex = event.target.id;
+//  const clickedSquare = event.target.id;
+
 
   // Find the square index
-  let squareIndex;
-  for (let i = 0; i < squareEls.length; i++) {
-    if (squareEls[i] === clickedSquare) {
-      squareIndex = i;
-      break;
-    }
-  }
+  // let squareIndex;
+  // for (let i = 0; i < squareEls.length; i++) {
+  //   if (squareEls[i] === clickedSquare) {
+  //     squareIndex = i;
+  //     break;
+  //   }
+  // }
 
   if (winner === true) return;
   if (board[squareIndex] === 'X' || board[squareIndex] === 'O') return;
@@ -218,3 +215,5 @@ function handleClick(event) {
   switchPlayerTurn();        // Step 6.4
   render();                  
 }
+
+resetBtnEl.addEventListener('click', init);

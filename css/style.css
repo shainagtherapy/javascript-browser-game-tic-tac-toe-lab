@@ -23,11 +23,20 @@ body {
 .sqr {
   width: 30%;
   aspect-ratio: 1/1;
-  border: 2px dashed;
+  border: 4px dashed #fdffd8;
   background-color: transparent;
   font-size: 64px;
   text-align: center;
+  display: flex;
+  line-height: 1;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
   margin: 2px;
+}
+
+.button {
+  background-color: transparent;
 }
 
 
