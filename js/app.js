@@ -24,8 +24,7 @@
 //7) Create Reset functionality.
 
 /*-------------------------------- Constants --------------------------------*/
-const squareEls = document.querySelectorAll('.sqr');
-const messageEls = document.querySelector('#message');
+
 const winningCombos = [
     [0, 1, 2],
     [3, 4, 5],
@@ -35,25 +34,32 @@ const winningCombos = [
     [2, 5, 8],
     [0, 4, 8],
     [6, 4, 2]
-]
+];
 
 // console.log(squareEls)
 // console.log(messageEls)
 /*---------------------------- Variables (state) ----------------------------*/
-let board;
-let turn;
-let winner;
-let tie;
+
+// board;
+// turn;
+// winner;
+// tie;
+
 /*------------------------ Cached Element References ------------------------*/
 
+const squareEls = document.querySelectorAll('.sqr');
+const messageEls = document.querySelector('#message');
+const restartBtn = document.querySelector('#restartBtn');
 
 
 /*-------------------------------- Functions --------------------------------*/
+
 function init() {
     board = [
-        '', '', '',
-        '', '', '',
-        '', '', ''];
+     "", "", "",
+     "", "", "",
+     "", "", "",
+    ];
     turn = "X";
     winner = false;
     tie = false;
@@ -61,75 +67,154 @@ function init() {
 }
 init()
 
-function play(event) {
-    player1(event);
-    player2(event);
-    render();
-}
-// STUCK Step 3g. Call a function named render() at the end of the init() function.
-//Resolved at line 60
-function render() {
-    updateBoard();
-    updateMessage();
-}
-
+// function play(event) {
+//     player1(event);
+//     player2(event);
+//     render();
+// }
+// Step 4:
+// Basic loop:
+// function updateBoard() {
+//       for (let i = 0; i < board.length; i++) 
+//       squareEls[i].textContent = board[squareEls[i].id];
+// }
 function updateBoard() {
-    for (let i = 0; i < board.length; i++) {
-        squareEls[i].textContent = board[i];
-        // if (turn === "X") {
-        //     squareEls[i].textContent = board[i]
-        // } else if (turn != "X") {
-        //     squareEls[i].textContent = "O"
-        // } else
-        //     squareEls[i].textContent = " "
-    }
+    board.forEach((value, index) => {
+        const square = squareEls[index];
+        square.textContent = value; // connects to matching div
+    
+        if (value === 'X') 
+            square.style.color = "magenta";
+        else if (value === 'O')
+            square.style.color = "cyan";
+    })
 }
 
 function updateMessage() {
     if (winner === false && tie === false) {
-        messageEls.textContent = "It's X turn!"
+        messageEls.textContent = `It's ${turn}'s turn`;
     } else if (winner === false && tie === true) {
-        messageEls.textContent = "It's a tie!"
+        messageEls.textContent = "It's a tie!";
     } else {
-        messageEls.textContent = "You've won!"
+        messageEls.textContent = `Player ${turn} won!`;
     }
 }
-render()
 
-checkForWinner.forEach((winningCombos) => {
-    
-})
+function render() {
+  updateBoard();
+  updateMessage();
+}
+
+// Step 6 a
+
+
+// Step 6.1
+function placePiece(index) {
+    board[index] = turn;
+}
+
+// Step 6.2 ********** a bit stuck
+// function checkForWinner () {
+//     for (let i = 0; i < winningCombos.length; i++) {
+//         const [a, b, c] = winningCombos[i];
+//     if (a !== "" && a === b && a === c) {
+//         winner = true;
+//         return;
+//     }
+//     }
+// }
+
+function checkForWinner() {
+  for (let i = 0; i < winningCombos.length; i++) {
+    const [a, b, c] = winningCombos[i];
+    if (
+      board[a] !== '' &&
+      board[a] === board[b] &&
+      board[a] === board[c]
+    ) {
+      winner = true;
+      return;
+    }
+  }
+}
+
+// Step 6.3
+// function checkForTie () {
+//     if (checkForWinner = false) {
+//         return; // this ends the function
+//     } else if (board [""]) {
+//         return;
+//     } else
+//         tie = true;
+// }
+// rewrite:
+function checkForTie() {
+  if (winner === true) return;
+  if (!board.includes('')) { 
+    tie = true;
+  }
+}
+
+
+// Step 6.4
+function switchPlayerTurn() {
+    if (winner === true) {
+        return;
+}   else if (winner === false && turn === 'X') {
+        turn = 'O';
+}   else if (winner === false && turn === 'O') {
+        turn = 'X';
+}    else {
+        return;
+}
+}
+console.log(turn)
+
 //WILL NEED A STEP OF IF/ELSE TRUE STATEMENT TO READ:
 //IF CLICK IS "X", MESSAGE SAYS "IT'S O TURN" ETC
 
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-
 // Step 6 a.b.c.
-const handleClick = (event) => {
-    const squareIndex = event.target.id;
-    console.log(squareIndex)
+// function handleClick(event) {
+//     const clickedSquare = event.target;
+//     let squareIndex;
+//     for (i = 0; i < squareEls; i++) {
+//         if (squareIndex[i] === clickedSquare) {
+//             squareIndex = i;
+//         }
+//     }
+//     if (winner === true) {
+//         return;
+//     }
+//     if (board[squareIndex] === 'X' || board[squareIndex] === 'O'){
+//         return;
+//     }
+// }
+
+// ORIGINAL LOOP KEEP ME!
+// for (let i = 0; i < squareEls.length; i++) {
+//   squareEls[i].addEventListener("click", handleClick);
+// }
+function handleClick(event) {
+  const clickedSquare = event.target;
+
+  // Find the square index
+  let squareIndex;
+  for (let i = 0; i < squareEls.length; i++) {
+    if (squareEls[i] === clickedSquare) {
+      squareIndex = i;
+      break;
+    }
+  }
+
+  if (winner === true) return;
+  if (board[squareIndex] === 'X' || board[squareIndex] === 'O') return;
+
+  placePiece(squareIndex);   // Step 6.1
+  checkForWinner();          // Step 6.2
+  checkForTie();             // Step 6.3
+  switchPlayerTurn();        // Step 6.4
+  render();                  
 }
-
-squareEls.forEach((banana) => {
-    banana.addEventListener('click', (event) => {
-        handleClick(event)
-    })
-})
-console.log(handleClick)
-//document.querySelectorAll('.sqr').addEventListener('click', play)
-
-
-
-
-// function handleClick(event) {
-//     squareEls.forEach(addEventListener.'click')
-// }
-// function handleClick(event) {
-
-// }
-
-// squareEls.addEventListener('click', handleClick)
-// turn X
-// updates message to "it's O turn"
