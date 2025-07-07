@@ -83,9 +83,9 @@ function updateBoard() {
         square.textContent = value; // connects to matching div
     
         if (value === 'X') 
-            square.style.color = "magenta";
+            square.style.color = "#fba9ed";
         else if (value === 'O')
-            square.style.color = "cyan";
+            square.style.color = "#7cf8f8";
     })
 }
 
