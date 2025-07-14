@@ -66,17 +66,7 @@ function init() {
     render();
 }
 init();
-// function play(event) {
-//     player1(event);
-//     player2(event);
-//     render();
-// }
-// Step 4:
-// Basic loop:
-// function updateBoard() {
-//       for (let i = 0; i < board.length; i++) 
-//       squareEls[i].textContent = board[squareEls[i].id];
-// }
+
 function updateBoard() {
     board.forEach((value, index) => {
         const square = squareEls[index];
@@ -99,15 +89,13 @@ function updateMessage() {
     }
 }
 
+
 function render() {
   updateBoard();
   updateMessage();
 }
 
-// Step 6 a
 
-
-// Step 6.1
 function placePiece(index) {
     board[index] = turn;
 }
@@ -137,7 +125,6 @@ function checkForWinner() { //chat gpt suggestion, is it not the same?
   }
 }
 
-
 // Step 6.3
 function checkForTie () {
     if (winner === false && (!board.includes(""))) {
@@ -153,7 +140,6 @@ function checkForTie () {
 //     tie = true;
 //   }
 // }
-
 
 // Step 6.4
 function switchPlayerTurn() {
@@ -171,22 +157,6 @@ function switchPlayerTurn() {
 /*----------------------------- Event Listeners -----------------------------*/
 
 // Step 6 a.b.c.
-// function handleClick(event) {
-//     const clickedSquare = event.target;
-//     let squareIndex;
-//     for (i = 0; i < squareEls; i++) {
-//         if (squareIndex[i] === clickedSquare) {
-//             squareIndex = i;
-//         }
-//     }
-//     if (winner === true) {
-//         return;
-//     }
-//     if (board[squareIndex] === 'X' || board[squareIndex] === 'O'){
-//         return;
-//     }
-// }
-
 // ORIGINAL LOOP KEEP ME!
 for (let i = 0; i < squareEls.length; i++) {
   squareEls[i].addEventListener("click", handleClick);
@@ -194,17 +164,6 @@ for (let i = 0; i < squareEls.length; i++) {
 
 function handleClick(event) {
   const squareIndex = event.target.id;
-//  const clickedSquare = event.target.id;
-
-
-  // Find the square index
-  // let squareIndex;
-  // for (let i = 0; i < squareEls.length; i++) {
-  //   if (squareEls[i] === clickedSquare) {
-  //     squareIndex = i;
-  //     break;
-  //   }
-  // }
 
   if (winner === true) return;
   if (board[squareIndex] === 'X' || board[squareIndex] === 'O') return;
